@@ -1,7 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 
-#include "FonctionDemo4.h"
+#include "FonctionDemo5.h"
 
 void rotation(int length, int width, float angle, float ** mat_src, float ** mat_dst) {
     // correction rotation dans la mauvaise direction
