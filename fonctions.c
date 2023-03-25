@@ -241,42 +241,17 @@ void Recal2(float** mat, int length, int width){
     }
 }
 
-void decal_toroid_v(float** mat, int length, int width, int decal){
-    float temp[length][decal];
-    int i, j;
-    for (i = 0; i < width; i++) {
-        for (j = 0; j < decal; j++) {
-	        temp[i][j]=mat[j][i];
+void decal_toroid(float** mat, int length, int width, int decali, int decalj) {
+    float temp[length][width];
+    for (int i = 0;i < length;i++) {
+        for (int j = 0;j < width;j++) {
+            temp[(i + decali) % length][(j + decalj) % length] = mat[i][j];
         }
     }
-	for (i = 0; i < length-decal; i++) {
-        for (j = 0; j < width; j++) {
-	        mat[i][j]=mat[i+decal][j];
-        }
-	}
-    for (i = 0; i < width; i++) {
-	    for (j = 0; j < decal; j++) {
-	        mat[j+length-decal][i]=temp[i][j];
-        }
-    }
-}
 
-void decal_toroid_h(float** mat, int length, int width, int decal){
-    float temp[width][decal];
-    int i, j;
-    for (i = 0; i < length; i++) {
-        for (j = 0; j < decal; j++) {
-	        temp[i][j]=mat[i][j];
-        }
-    }
-	for (i = 0; i < length; i++) {
-        for (j = 0; j < width-decal; j++) {
-	        mat[i][j]=mat[i][j+decal];
-        }
-	}
-    for (i = 0; i < length; i++) {
-	    for (j = 0; j < decal; j++) {
-	        mat[i][length-decal+j]=temp[i][j];
+    for (int i = 0;i < length;i++) {
+        for (int j = 0;j < width;j++) {
+            mat[i][j] = temp[i][j];
         }
     }
 }
