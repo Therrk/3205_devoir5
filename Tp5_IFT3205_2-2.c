@@ -13,6 +13,7 @@
 // FICHIERS INCLUS -------------------------------
 //------------------------------------------------
 #include "FonctionDemo5.h"
+#include "fonctions.c"
 
 //------------------------------------------------
 // DEFINITIONS -----------------------------------
@@ -69,6 +70,7 @@ int main(int argc,char** argv)
  //>Allocation memory
  float** ImgDegraded=fmatrix_allocate_2d(length,width);
  float** ImgDenoised=fmatrix_allocate_2d(length,width);  
+ float** ImgDenoised_temp=fmatrix_allocate_2d(length,width);  
   float** Imagette = fmatrix_allocate_2d(8,8);
 
  //>Degradation 
@@ -87,14 +89,14 @@ for (m = 0; m < 64; m++) {
       for (k = 0; k < 8; k++) {
 	      for (l = 0; l < 8; l++) {
 	        if ((8*k)+l>m) {
-	          Imagette[k][l]=0;
+	          Imagette[coords[(8*k)+l][0]][coords[(8*k)+l][1]]=0;
           }
         }
       }
       ddct8x8s(-1,Imagette);
       for (k = 0; k < 8; k++) {
 	      for (l = 0; l < 8; l++) {
-	        ImgDenoised[(8*i)+k][(8*j)+l]=Imagette[k][l];
+	        ImgDenoised_temp[(8*i)+k][(8*j)+l]=Imagette[k][l];
         }
       }
     }
@@ -103,6 +105,7 @@ for (m = 0; m < 64; m++) {
   if (MMSE<bestMMSE) {
 	  bestMMSE = MMSE;
 	  bestM = m;
+	  fmatrix_move(length, width, ImgDenoised_temp, ImgDenoised);
   }
 }
  
