@@ -269,14 +269,14 @@ void decal_toroid_h(float** mat, int length, int width, int decal){
 	        temp[i][j]=mat[i][j];
         }
     }
-	for (i = 0; i < width-decal; i++) {
-        for (j = 0; j < length; j++) {
-	        mat[i][j]=mat[i][j+100];
+	for (i = 0; i < length; i++) {
+        for (j = 0; j < width-decal; j++) {
+	        mat[i][j]=mat[i][j+decal];
         }
 	}
-    // for (i = 0; i < length; i++) {
-	    // for (j = 0; j < decal; j++) {
-	        // mat[i][j]=temp[i][j];
-        // }
-    // }
+    for (i = 0; i < length; i++) {
+	    for (j = 0; j < decal; j++) {
+	        mat[i][length-decal+j]=temp[i][j];
+        }
+    }
 }
