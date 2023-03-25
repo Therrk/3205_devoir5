@@ -240,3 +240,43 @@ void Recal2(float** mat, int length, int width){
         }
     }
 }
+
+void decal_toroid_v(float** mat, int length, int width, int decal){
+    float temp[length][decal];
+    int i, j;
+    for (i = 0; i < width; i++) {
+        for (j = 0; j < decal; j++) {
+	        temp[i][j]=mat[j][i];
+        }
+    }
+	for (i = 0; i < length-decal; i++) {
+        for (j = 0; j < width; j++) {
+	        mat[i][j]=mat[i+decal][j];
+        }
+	}
+    for (i = 0; i < width; i++) {
+	    for (j = 0; j < decal; j++) {
+	        mat[j+length-decal][i]=temp[i][j];
+        }
+    }
+}
+
+void decal_toroid_h(float** mat, int length, int width, int decal){
+    float temp[width][decal];
+    int i, j;
+    for (i = 0; i < length; i++) {
+        for (j = 0; j < decal; j++) {
+	        temp[i][j]=mat[i][j];
+        }
+    }
+	for (i = 0; i < width-decal; i++) {
+        for (j = 0; j < length; j++) {
+	        mat[i][j]=mat[i][j+100];
+        }
+	}
+    // for (i = 0; i < length; i++) {
+	    // for (j = 0; j < decal; j++) {
+	        // mat[i][j]=temp[i][j];
+        // }
+    // }
+}
