@@ -59,7 +59,9 @@ int main(int argc,char** argv)
  int length,width;
   int i,j,k,l;
   float bestMMSE=999999999;
-  float MMSE, lim, total;
+  int bestlim =0;
+  int lim =0;
+  float MMSE, total;
  char BufSystVisuImg[NBCHAR];
 
  //>Lecture Image 
@@ -104,11 +106,13 @@ int main(int argc,char** argv)
     MMSE = computeMMSE(Img,ImgDenoised, length);
     if (MMSE<bestMMSE) {
   	  bestMMSE = MMSE;
+  	  bestlim = lim;
   	  fmatrix_move(length, width, ImgDenoised_temp, ImgDenoised);
     }
     lim+=1;
   } while (total!=0);
- 
+
+ printf("Meilleure Limite: %.i\n",bestlim);
  printf("\n\n  Info Noise");
  printf("\n  ------------");
  printf("\n    > MSE = [%.2f]",computeMMSE(ImgDegraded,Img,length)); 
